@@ -36,6 +36,13 @@ export default {
           type: 'item',
           icon: icons['HomeOutlinedIcon'],
           url: '/dashboard/default'
+        },
+        {
+          id: 'agent',
+          title: 'Agents',
+          type: 'item',
+          icon: icons['HomeOutlinedIcon'],
+          url: '/dashboard/agent'
         }
       ]
     },

@@ -50,7 +50,11 @@ const Default = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4040/dashboard');
+        const response = await axios.get('http://localhost:4040/dashboard', {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+                });
         const revenueChartData = response.data; // Assuming the response contains the revenue chart data
         console.log('Revenue Chart Data:', revenueChartData); // Log the data to verify its structure
         setDashboardData(revenueChartData); // Set the fetched data to state
@@ -61,6 +65,7 @@ const Default = () => {
   
     fetchData();
   }, []);
+  
 
   if (!dashboardData) {
     return <div>Loading...</div>; // or any loading indicator
