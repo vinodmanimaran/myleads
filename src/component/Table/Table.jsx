@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, TablePagination, TableSortLabel } from '@mui/material';
+import MUIDataTable from "mui-datatables";
 
 const DashboardTable = () => {
   const [data, setData] = useState([]);
-  const [orderBy, setOrderBy] = useState('Service');
-  const [order, setOrder] = useState('asc');
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,87 +42,43 @@ const DashboardTable = () => {
     return rows;
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleSortRequest = (property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
-    setOrderBy(property);
-  };
-
-  const sortedData = [...data].sort((a, b) => {
-    if (order === 'asc') {
-      return a[orderBy] > b[orderBy] ? 1 : -1;
-    } else {
-      return a[orderBy] < b[orderBy] ? 1 : -1;
-    }
-  });
-
-  const allFields = [
-    'id',
-    'Date',
-    'Service',
-    'name',
-    'mobile',
-    'alternate_number',
-    'place',
-    'district',
-    'amount',
-
-    'vehicle',
-    'purchaseOrSale',
-    'agreeOrCommercial'
+  const columns = [
+    { name: 'id', label: 'ID' },
+    { name: 'agentId', label: 'Agent ID' },
+    { name: 'Date', label: 'Date' },
+    { name: 'Service', label: 'Service' },
+    { name: 'name', label: 'Name' },
+    { name: 'mobile', label: 'Mobile' },
+    { name: 'alternate_number', label: 'Alternate Number' },
+    { name: 'place', label: 'Place' },
+    { name: 'district', label: 'District' },
+    { name: 'amount', label: 'Amount' },
+    { name: 'vehicle', label: 'Vehicle' },
+    { name: 'purchaseOrSale', label: 'Purchase/Sale' },
+    { name: 'agreeOrCommercial', label: 'Agree/Commercial' }
   ];
 
+  const options = {
+    filter: true,
+    selectableRows: 'none',
+    // filterType: 'textField',
+    responsive: 'standard',
+    rowsPerPage: 5,
+    rowsPerPageOptions: [5, 10, 20],
+    serverSide: false, // Change to true if using server-side pagination
+    onColumnSortChange: (changedColumn, direction) => {
+      // Handle column sorting
+      console.log(`Sort changed: Column=${changedColumn}, Direction=${direction}`);
+    }
+  };
+
   return (
-    <Paper style={{ width: '100%' }}>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {allFields.map(field => (
-                <TableCell key={field}>
-                  <TableSortLabel
-                    active={orderBy === field}
-                    direction={orderBy === field ? order : 'asc'}
-                    onClick={() => handleSortRequest(field)}
-                  >
-                    {field}
-                  </TableSortLabel>
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sortedData
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow key={row.id}>
-                  {allFields.map(field => (
-                    <TableCell key={field}>{row[field]}</TableCell>
-                  ))}
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 20]}
-        component="div"
-        count={sortedData.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <MUIDataTable
+      title={"Dashboard Table"}
+      data={data}
+      columns={columns}
+      options={options}
+    />
   );
 };
 

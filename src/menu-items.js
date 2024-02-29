@@ -8,6 +8,8 @@ import BlockOutlinedIcon from '@mui/icons-material/BlockOutlined';
 import ChromeReaderModeOutlinedIcon from '@mui/icons-material/ChromeReaderModeOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import { PersonOutline  as PersonOutlineIcon} from '@mui/icons-material';
+
 
 const icons = {
   NavigationOutlinedIcon: NavigationOutlinedIcon,
@@ -18,7 +20,9 @@ const icons = {
   AccountTreeOutlinedIcon: AccountTreeOutlinedIcon,
   BlockOutlinedIcon: BlockOutlinedIcon,
   AppsOutlinedIcon: AppsOutlinedIcon,
-  ContactSupportOutlinedIcon: ContactSupportOutlinedIcon
+  ContactSupportOutlinedIcon: ContactSupportOutlinedIcon,
+  PersonOutlineIcon: PersonOutlineIcon ,
+
 };
 
 // eslint-disable-next-line
@@ -35,14 +39,14 @@ export default {
           title: 'Home',
           type: 'item',
           icon: icons['HomeOutlinedIcon'],
-          url: '/dashboard/default'
+          url: '/dashboard'
         },
         {
           id: 'agent',
           title: 'Agents',
           type: 'item',
-          icon: icons['HomeOutlinedIcon'],
-          url: '/dashboard/agent'
+          icon: icons['PersonOutlineIcon'],
+          url: '/agents'
         }
       ]
     },

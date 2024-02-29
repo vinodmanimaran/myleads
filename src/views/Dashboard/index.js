@@ -51,11 +51,11 @@ const Default = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:4040/dashboard', {
-          headers: {
-            'Content-Type': 'application/json',
-          }
+          // withCredentials:"true",
+          headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+
                 });
-        const revenueChartData = response.data; // Assuming the response contains the revenue chart data
+        const revenueChartData = response.data; 
         console.log('Revenue Chart Data:', revenueChartData); // Log the data to verify its structure
         setDashboardData(revenueChartData); // Set the fetched data to state
       } catch (error) {
@@ -143,20 +143,14 @@ function generateChartData(data) {
         return HomeTwoToneIcon;
       case 'savingsInvestments':
         return ThumbUpAltTwoToneIcon;
-      case 'otherInsurances':
-        return AssignmentTurnedInTwoToneIcon;
       case 'vehicleInsurances':
         return DirectionsCarTwoToneIcon;
+        case 'InsuranceData':
+          return  AssignmentTurnedInTwoToneIcon;
       default:
         return null; 
     }
   };
-
-
-
-  
-
- 
 
 
   return (

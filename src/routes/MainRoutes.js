@@ -1,12 +1,11 @@
 import React, { lazy } from 'react';
 
-// project import
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'component/Loadable';
 
 const DashboardDefault = Loadable(lazy(() => import('../views/Dashboard')));
 
-const UtilsTypography = Loadable(lazy(() => import('../views/Utils/Typography')));
+const Agents = Loadable(lazy(() => import('../views/Agents/Agent')));
 
 const SamplePage = Loadable(lazy(() => import('../views/SamplePage')));
 
@@ -22,10 +21,10 @@ const MainRoutes = {
       element: <DashboardDefault />
     },
     {
-      path: '/dashboard/default',
+      path: '/dashboard',
       element: <DashboardDefault />
     },
-    { path: '/utils/util-typography', element: <UtilsTypography /> },
+    { path: '/agents', element: <Agents/> },
     { path: '/sample-page', element: <SamplePage /> }
   ]
 };
