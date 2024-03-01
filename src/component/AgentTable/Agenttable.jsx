@@ -38,11 +38,11 @@ useEffect(() => {
   const fetchAgents = async () => {
     try {
       const response = await axios.get(`${API_URL}/agent/getallagent`, {
+        mode: 'no-cors',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        responseType: 'json'
       });
 
       setAgents(response.data.agents);

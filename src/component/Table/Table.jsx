@@ -11,11 +11,11 @@ const DashboardTable = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${API_URL}/dashboard`, {
+          mode: 'no-cors',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
-          responseType: 'json'
         });
   
         const revenueChartData = response.data?.data || {};
