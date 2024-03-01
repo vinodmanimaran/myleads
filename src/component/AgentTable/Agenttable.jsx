@@ -34,29 +34,21 @@ const Agenttable = () => {
   const [error, setError] = useState(null);
 //   const classes = useStyles();
 
-useEffect(() => {
-  const fetchAgents = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/agent/getallagent`, {
-        mode: 'no-cors',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      });
+  useEffect(() => {
+    const fetchAgents = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/agent/getallagent`);
+        setAgents(response.data.agents);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching agents:', error);
+        setError('Error fetching agents. Please try again later.');
+        setLoading(false);
+      }
+    };
 
-      setAgents(response.data.agents);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error fetching agents:', error);
-      setError('Error fetching agents. Please try again later.');
-      setLoading(false);
-    }
-  };
-
-  fetchAgents();
-}, []);
-
+    fetchAgents();
+  }, []);
 
   const columns = [
 

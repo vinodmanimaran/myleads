@@ -47,38 +47,27 @@ const Default = () => {
   const theme = useTheme();
   const [dashboardData, setDashboardData] = useState(null);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${API_URL}/dashboard`, {
-          mode: 'no-cors',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-        });
-  
-        // Since the response might be opaque due to CORS restrictions, 
-        // you may not be able to directly read the response body.
-        // Handle the response based on your API's behavior.
-  
-        console.log('Response:', response);
-  
-        // Example handling of response
-        if (response.status === 200) {
-          console.log('Request successful but response may be opaque.');
-          // Handle response data accordingly
-        } else {
-          console.error('Request failed with status:', response.status);
-        }
+          // withCredentials:"true",
+          headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
+
+                });
+        const revenueChartData = response.data; 
+        console.log('Revenue Chart Data:', revenueChartData); // Log the data to verify its structure
+        setDashboardData(revenueChartData); // Set the fetched data to state
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching revenue chart data:', error);
       }
     };
   
     fetchData();
   }, []);
   
+
   if (!dashboardData) {
     return <div>Loading...</div>; // or any loading indicator
   }
