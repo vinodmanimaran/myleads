@@ -39,6 +39,7 @@ const FlatCardBlock = styled((props) => <Grid item sm={6} xs={12} {...props} />)
 // ==============================|| DASHBOARD DEFAULT ||============================== //
 
 
+const API_URL = "https://backend-api-u4m5.onrender.com" || "http://localhost:4040";
 
 
 
@@ -50,7 +51,7 @@ const Default = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4040/dashboard', {
+        const response = await axios.get(`${API_URL}/dashboard`, {
           // withCredentials:"true",
           headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
 

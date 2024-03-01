@@ -4,11 +4,13 @@ import MUIDataTable from "mui-datatables";
 
 const DashboardTable = () => {
   const [data, setData] = useState([]);
+  const API_URL = "https://backend-api-u4m5.onrender.com" || "http://localhost:4040";
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4040/dashboard');
+        const response = await axios.get(`${API_URL}/dashboard`);
         const revenueChartData = response.data?.data || {};
         setData(generateRows(revenueChartData));
       } catch (error) {
@@ -27,7 +29,6 @@ const DashboardTable = () => {
           for (const field in item) {
             if (!['_id', 'updatedAt', '__v'].includes(field)) {
               if (field === 'createdAt') {
-                // Convert createdAt to date/month/year format
                 const createdAtDate = new Date(item[field]);
                 row['Date'] = `${createdAtDate.getDate()}/${createdAtDate.getMonth() + 1}/${createdAtDate.getFullYear()}`;
               } else {
@@ -61,13 +62,11 @@ const DashboardTable = () => {
   const options = {
     filter: true,
     selectableRows: 'none',
-    // filterType: 'textField',
     responsive: 'standard',
     rowsPerPage: 5,
     rowsPerPageOptions: [5, 10, 20],
-    serverSide: false, // Change to true if using server-side pagination
+    serverSide: false,
     onColumnSortChange: (changedColumn, direction) => {
-      // Handle column sorting
       console.log(`Sort changed: Column=${changedColumn}, Direction=${direction}`);
     }
   };

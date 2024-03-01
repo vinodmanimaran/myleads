@@ -24,6 +24,10 @@ const useStyles = makeStyles({
   },
 });
 
+
+const API_URL = "https://backend-api-u4m5.onrender.com" || "http://localhost:4040";
+
+
 const Agenttable = () => {
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +37,7 @@ const Agenttable = () => {
   useEffect(() => {
     const fetchAgents = async () => {
       try {
-        const response = await axios.get('http://localhost:4040/agent/getallagent');
+        const response = await axios.get(`${API_URL}/agent/getallagent`);
         setAgents(response.data.agents);
         setLoading(false);
       } catch (error) {
