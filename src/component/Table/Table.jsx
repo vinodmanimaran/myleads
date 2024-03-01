@@ -10,15 +10,24 @@ const DashboardTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/dashboard`);
+        const response = await axios.get(`${API_URL}/dashboard`, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          responseType: 'json'
+        });
+  
         const revenueChartData = response.data?.data || {};
         setData(generateRows(revenueChartData));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+  
     fetchData();
   }, []);
+  
 
   const generateRows = (data) => {
     const rows = [];

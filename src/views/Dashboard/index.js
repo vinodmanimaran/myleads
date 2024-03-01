@@ -51,21 +51,40 @@ const Default = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/dashboard`, {
-          // withCredentials:"true",
-          headers: {Accept: 'application/json', 'Content-Type': 'application/json'},
-
-                });
-        const revenueChartData = response.data; 
-        console.log('Revenue Chart Data:', revenueChartData); // Log the data to verify its structure
-        setDashboardData(revenueChartData); // Set the fetched data to state
+        // Fetch JSON data
+        const jsonResponse = await axios.get(`${API_URL}/dashboard/json`, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          responseType: 'json'
+        });
+        
+        // Fetch JavaScript file
+        const jsResponse = await axios.get(`${API_URL}/dashboard/javascript`, {
+          headers: {
+            Accept: 'application/javascript',
+            'Content-Type': 'application/javascript'
+          },
+          responseType: 'text'
+        });
+  
+        const revenueChartData = jsonResponse.data;
+        console.log('Revenue Chart Data:', revenueChartData); // Log the JSON data
+  
+        const javascriptCode = jsResponse.data;
+        console.log('JavaScript Code:', javascriptCode); // Log the JavaScript code
+  
+        // Handle the fetched data as needed
       } catch (error) {
-        console.error('Error fetching revenue chart data:', error);
+        console.error('Error fetching data:', error);
       }
     };
   
     fetchData();
   }, []);
+  
+  
   
 
   if (!dashboardData) {
